@@ -27,27 +27,27 @@ Provides:       group(falcond)
 falcond is a powerful system daemon designed to automatically optimize your Linux gaming experience. It intelligently manages system resources and performance settings on a per-game basis, eliminating the need to manually configure settings for each game.
 
 %prep
-
-%autosetup -n %{name}
+%autosetup -n %{name}/%{name}
 
 %build
 
 %install
-cd %{name}
-mkdir -p %{buildroot}%{_unitdir}/
-install -Dm644 debian/%{name}.service %{buildroot}%{_unitdir}
+install -Dm644 debian/%{name}.service -t %{buildroot}%{_unitdir}
+# When DNF supports microarchitectures the fallback option for -c can be used here instead
 DESTDIR="%{buildroot}" \
-zig build \
-    -Doptimize=ReleaseFast \
-    -Dcpu=x86_64_v3
-    
+%ifarch x86_64
+%{zig_build_target -r fast -cx86_64_v3 -s} \
+%elifarch aarch64
+%{zig_build_target -r fast -s} \
+%endif
+
 %pre
 # Create falcond group if it doesn't exist
 getent group 'falcond' >/dev/null || groupadd -f -r 'falcond' || :
 
 # Root must be a member of the group
 usermod -aG 'falcond' root || :
-    
+
 %post
 %systemd_post %{name}.service
 
@@ -56,11 +56,13 @@ usermod -aG 'falcond' root || :
 
 %postun
 %systemd_postun_with_restart %{name}.service
-    
+
 %files
-%doc README.md
-%license LICENSE
+%doc ../README.md
+%license ../LICENSE
 %{_bindir}/%{name}
 %{_unitdir}/%{name}.service
 
+
 %changelog
+%autochangelog
