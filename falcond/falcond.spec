@@ -8,7 +8,7 @@ Summary:        Advanced Linux Gaming Performance Daemon
 
 License:        MIT
 URL:            https://git.pika-os.com/general-packages/%{name}
-Source0:        %{url}/archive/v%{version}.tar.gz
+Source0:        https://github.com/PikaOS-Linux/falcond/archive/refs/tags/v%{version}.tar.gz
 
 ExclusiveArch:	x86_64
 
@@ -28,12 +28,12 @@ falcond is a powerful system daemon designed to automatically optimize your Linu
 
 %prep
 
-%autosetup -n %{name}
+%autosetup
 
 %build
 
 %install
-cd %{name}
+cd falcond
 mkdir -p %{buildroot}%{_unitdir}/
 install -Dm644 debian/%{name}.service %{buildroot}%{_unitdir}
 DESTDIR="%{buildroot}" \
