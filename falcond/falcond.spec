@@ -6,7 +6,7 @@ Release:        3%{?dist}
 Summary:        Advanced Linux Gaming Performance Daemon
 License:        MIT
 URL:            https://git.pika-os.com/general-packages/falcond
-Source0:        %{url}/archive/v%{version}.tar.gz
+Source0:        https://github.com/PikaOS-Linux/falcond/archive/refs/tags/v%{version}.tar.gz
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  zig >= 0.15.2
 BuildRequires:  zig-rpm-macros
