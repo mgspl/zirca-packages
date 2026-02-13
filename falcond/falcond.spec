@@ -16,9 +16,7 @@ BuildRequires:  zig >= 0.14.0
 BuildRequires:  systemd-rpm-macros
 
 Recommends:	%{name}-profiles
-Recommends:	%{name}-gui
 Requires:	%{name}-profiles
-Requires:	%{name}-gui
 Requires:	scx-scheds
 
 Provides:       group(falcond)
