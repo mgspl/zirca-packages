@@ -8,7 +8,7 @@
 %global __strip /bin/true
 
 %global forgeurl https://github.com/niri-wm/niri
-%global commit a2a52911757cb3b497db9407592f9b4c439571ea
+%global commit 2dc6f4482c4eeed75ea8b133d89cad8658d38429
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %forgemeta
@@ -18,6 +18,7 @@
 %global rustflags_debuginfo please-remove-me
 %global build_rustflags %{shrink:
   -Copt-level=3
+  -Ctarget_cpu=x86-64-v3
   -Ccodegen-units=%rustflags_codegen_units
   -Cstrip=none
   %{expr:0%{?_include_frame_pointers} && ("%{_arch}" != "ppc64le" && "%{_arch}" != "s390x" && "%{_arch}" != "i386") ? "-Cforce-frame-pointers=yes" : ""}
