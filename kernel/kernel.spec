@@ -44,7 +44,7 @@ Name: kernel
 Summary: The Linux Kernel with Cachyos and Nobara Patches
 
 %define _basekver 6.19
-%define _stablekver 3
+%define _stablekver 4
 %define _rcver rc7
 %if %{_stablekver} == 0
 %define _tarkver %{_basekver}
@@ -66,7 +66,7 @@ Version: %{_basekver}.%{_stablekver}
 Release:%{customver}.zirca%{?dist}
 
 # Define rawhide fedora version
-%define _rawhidever 44
+%define _rawhidever 45
 
 %define rpmver %{version}-%{release}
 %define rpmverobsolete 6.12.9-200.fsync%{?dist}
@@ -95,6 +95,8 @@ Patch0: https://raw.githubusercontent.com/CachyOS/kernel-patches/master/%{_basek
 Patch1: https://raw.githubusercontent.com/CachyOS/kernel-patches/master/%{_basekver}/sched/0001-bore-cachy.patch
 # Piece-Of-Cake Fast Idle CPU Selector
 Patch2: https://raw.githubusercontent.com/CachyOS/kernel-patches/refs/heads/master/%{_basekver}/misc/poc-selector.patch
+Patch3: https://raw.githubusercontent.com/CachyOS/kernel-patches/refs/heads/master/%{_basekver}/misc/reflex-governor.patch
+Patch4: https://raw.githubusercontent.com/CachyOS/kernel-patches/refs/heads/master/%{_basekver}/misc/nap-governor.patch
 
 %define __spec_install_post /usr/lib/rpm/brp-compress || :
 %define debug_package %{nil}
@@ -388,6 +390,8 @@ analysing the logical and timing behavior of Linux.
 patch -p1 -i %{PATCH0}
 patch -p1 -i %{PATCH1}
 patch -p1 -i %{PATCH2}
+patch -p1 -i %{PATCH3}
+patch -p1 -i %{PATCH4}
 
 # Fetch the config and move it to the proper directory
 cp %{SOURCE1} .config
@@ -426,10 +430,7 @@ scripts/config --set-val HZ 1000
 # /lib/ld-linux-x86-64.so.2 --help | grep supported
 # and make sure if your processor supports it:
 # x86-64-v3 (supported, searched)
-#scripts/config --set-val X86_64_VERSION 3
-
-# Enable ZEN3 March
-scripts/config -e CONFIG_MZEN3
+scripts/config --set-val X86_64_VERSION 3
 
 # Set O3
 scripts/config -d CC_OPTIMIZE_FOR_PERFORMANCE
