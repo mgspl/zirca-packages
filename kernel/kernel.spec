@@ -463,8 +463,8 @@ scripts/config -e ARCH_SUPPORTS_LTO_CLANG
 scripts/config -e ARCH_SUPPORTS_LTO_CLANG_THIN
 scripts/config -d LTO_NONE
 scripts/config -e HAS_LTO_CLANG
-scripts/config -d LTO_CLANG_FULL
-scripts/config -e LTO_CLANG_THIN
+scripts/config -d LTO_CLANG_THIN
+scripts/config -e LTO_CLANG_FULL
 scripts/config -e HAVE_GCC_PLUGINS
 %endif
 
