@@ -96,7 +96,6 @@ Patch1: https://raw.githubusercontent.com/CachyOS/kernel-patches/master/%{_basek
 # Piece-Of-Cake Fast Idle CPU Selector
 Patch2: https://raw.githubusercontent.com/CachyOS/kernel-patches/refs/heads/master/%{_basekver}/misc/poc-selector.patch
 Patch3: https://raw.githubusercontent.com/CachyOS/kernel-patches/refs/heads/master/%{_basekver}/misc/reflex-governor.patch
-#Patch4: https://raw.githubusercontent.com/CachyOS/kernel-patches/refs/heads/master/%{_basekver}/misc/nap-governor.patch
 
 %define __spec_install_post /usr/lib/rpm/brp-compress || :
 %define debug_package %{nil}
@@ -391,7 +390,6 @@ patch -p1 -i %{PATCH0}
 patch -p1 -i %{PATCH1}
 patch -p1 -i %{PATCH2}
 patch -p1 -i %{PATCH3}
-#patch -p1 -i %{PATCH4}
 
 # Fetch the config and move it to the proper directory
 cp %{SOURCE1} .config
